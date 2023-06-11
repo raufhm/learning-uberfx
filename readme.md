@@ -1,6 +1,6 @@
 # DDD with UberFx
 
-This repository contains the source code for "My Awesome Application." It is a Go application structured using the DDD (Domain-Driven Design) approach. The application provides functionality related to managing users.
+This repository contains the source code for "learning uberfx." It is a Go application structured using the DDD (Domain-Driven Design) approach. The application provides functionality related to managing users.
 
 ## Project Structure
 ```
