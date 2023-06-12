@@ -17,8 +17,10 @@ type UserRepositoryImpl struct {
 	DBConnection *sql.DB
 }
 
-func NewUserRepository() UserRepository {
-	return &UserRepositoryImpl{}
+func NewUserRepository(db *sql.DB) UserRepository {
+	return &UserRepositoryImpl{
+		DBConnection: db,
+	}
 }
 
 func (repo *UserRepositoryImpl) GetUserByID(id string) (*domain.User, error) {

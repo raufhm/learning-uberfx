@@ -2,17 +2,16 @@ package uberfx
 
 import (
 	"context"
-	"github.com/gin-gonic/gin"
-	"github.com/raufhm/learning-uberfx/config"
-	"go.uber.org/fx"
+	"fmt"
+	"github.com/raufhm/learning-uberfx/router"
 	"log"
 	"net/http"
 	"time"
-)
 
-func InvokeHTTPServer() fx.Option {
-	return fx.Invoke(StartHTTPServer)
-}
+	"github.com/gin-gonic/gin"
+	"github.com/raufhm/learning-uberfx/config"
+	"go.uber.org/fx"
+)
 
 func StartHTTPServer(lifecycle fx.Lifecycle, engine *gin.Engine, cfg *config.Config) {
 	server := &http.Server{
@@ -34,7 +33,23 @@ func StartHTTPServer(lifecycle fx.Lifecycle, engine *gin.Engine, cfg *config.Con
 			ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 			defer cancel()
 
-			return server.Shutdown(ctx)
+			fmt.Println("Shutting down the server...")
+
+			if err := server.Shutdown(ctx); err != nil {
+				return fmt.Errorf("failed to gracefully shut down the server: %v", err)
+			}
+
+			fmt.Println("Server gracefully stopped")
+
+			return nil
 		},
 	})
+}
+
+func InvokeHTTPServer() fx.Option {
+	return fx.Invoke(StartHTTPServer)
+}
+
+func InvokeRegisterRoutes() fx.Option {
+	return fx.Invoke(router.RegisterRoutes)
 }

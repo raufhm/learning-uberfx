@@ -9,9 +9,13 @@ type UserService struct {
 	UserRepository repository.UserRepository
 }
 
+func NewUserService(userRepo repository.UserRepository) *UserService {
+	return &UserService{
+		UserRepository: userRepo,
+	}
+}
+
 func (svc *UserService) GetUserByID(id string) (*domain.User, error) {
-	// Implement the logic to get a user by ID using the UserRepository
-	// ...
 	return svc.UserRepository.GetUserByID(id)
 }
 

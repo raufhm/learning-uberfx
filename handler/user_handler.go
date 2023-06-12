@@ -11,6 +11,12 @@ type UserHandler struct {
 	UserService *service.UserService
 }
 
+func NewUserHandler(userService *service.UserService) *UserHandler {
+	return &UserHandler{
+		UserService: userService,
+	}
+}
+
 func (h *UserHandler) GetUserByID(c *gin.Context) {
 	userID := c.Param("id")
 

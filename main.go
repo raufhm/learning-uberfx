@@ -11,7 +11,9 @@ import (
 )
 
 func main() {
-	app := fx.New(provider(), invoker())
+	app := fx.New(
+		uberfx.LoadOptions()...,
+	)
 
 	if err := app.Start(context.Background()); err != nil {
 		log.Fatalf("Failed to start application: %v", err)
@@ -22,22 +24,6 @@ func main() {
 	if err := app.Stop(context.Background()); err != nil {
 		log.Printf("Failed to stop application gracefully: %v", err)
 	}
-}
-
-func provider() fx.Option {
-	return fx.Options(
-		uberfx.ProvideViper(),
-		uberfx.ProvideConfig(),
-		uberfx.ProvideDBConnection(),
-		uberfx.ProvideGinEngine(),
-		uberfx.ProvideUserHandler(),
-		uberfx.ProvideUserRepository(),
-		uberfx.ProvideUserService(),
-	)
-}
-
-func invoker() fx.Option {
-	return fx.Options(uberfx.InvokeHTTPServer())
 }
 
 func gracefulShutdown(app *fx.App) {
