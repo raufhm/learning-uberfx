@@ -51,27 +51,11 @@ func NewProvideConfig(v *viper.Viper) (*config.Config, error) {
 	return cfg, nil
 }
 
-func ProvideGinEngine() fx.Option {
-	return fx.Provide(NewGinEngine)
-}
-
-func ProvideViper() fx.Option {
-	return fx.Provide(NewViperEngine)
-}
-
-func ProvideConfig() fx.Option {
-	return fx.Provide(NewProvideConfig)
-}
-
-func ProvideDBConnection() fx.Option {
-	return fx.Provide(NewDBConnection)
-}
-
 func provideDependencies() fx.Option {
-	return fx.Options(
-		ProvideViper(),
-		ProvideConfig(),
-		ProvideDBConnection(),
-		ProvideGinEngine(),
+	return fx.Provide(
+		NewDBConnection,
+		NewProvideConfig,
+		NewViperEngine,
+		NewGinEngine,
 	)
 }
