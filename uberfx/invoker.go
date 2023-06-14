@@ -3,19 +3,19 @@ package uberfx
 import (
 	"context"
 	"fmt"
-	"github.com/raufhm/learning-uberfx/router"
+	"github.com/raufhm/learning-uberfx/internal/router"
+	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/raufhm/learning-uberfx/config"
 	"go.uber.org/fx"
 )
 
-func StartHTTPServer(lifecycle fx.Lifecycle, engine *gin.Engine, cfg *config.Config) {
+func StartHTTPServer(lifecycle fx.Lifecycle, engine *gin.Engine, v *viper.Viper) {
 	server := &http.Server{
-		Addr:    cfg.Server.Port,
+		Addr:    fmt.Sprintf(":%s", v.GetString("SERVER_PORT")),
 		Handler: engine,
 	}
 

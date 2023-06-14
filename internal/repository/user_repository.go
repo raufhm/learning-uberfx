@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/raufhm/learning-uberfx/domain"
+	"github.com/raufhm/learning-uberfx/internal/domain"
 )
 
 type UserRepository interface {

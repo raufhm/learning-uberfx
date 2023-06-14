@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/raufhm/learning-uberfx/domain"
-	"github.com/raufhm/learning-uberfx/repository"
+	"github.com/raufhm/learning-uberfx/internal/domain"
+	"github.com/raufhm/learning-uberfx/internal/repository"
 )
 
 type UserService struct {

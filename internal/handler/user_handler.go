@@ -2,8 +2,8 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/raufhm/learning-uberfx/domain"
-	"github.com/raufhm/learning-uberfx/service"
+	"github.com/raufhm/learning-uberfx/internal/domain"
+	"github.com/raufhm/learning-uberfx/internal/service"
 	"net/http"
 )
 

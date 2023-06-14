@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/raufhm/learning-uberfx/config"
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 	"go.uber.org/fx"
 )
@@ -13,8 +13,19 @@ func NewGinEngine() *gin.Engine {
 	return gin.Default()
 }
 
-func NewDBConnection(cfg *config.Config) (*sql.DB, error) {
-	db, err := sql.Open("postgres", cfg.DBStringConn())
+func loadDbConn(v *viper.Viper) string {
+	return fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=%s",
+		v.GetString("DB_HOST"),
+		v.GetString("DB_PORT"),
+		v.GetString("DB_NAME"),
+		v.GetString("DB_USER"),
+		v.GetString("DB_PASSWORD"),
+		v.GetString("DB_SSLMODE"),
+	)
+}
+
+func NewDBConnection(v *viper.Viper) (*sql.DB, error) {
+	db, err := sql.Open("postgres", loadDbConn(v))
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database connection: %w", err)
 	}
@@ -40,21 +51,21 @@ func NewViperEngine() (*viper.Viper, error) {
 	return v, nil
 }
 
-func NewProvideConfig(v *viper.Viper) (*config.Config, error) {
-	cfg := &config.Config{}
-
-	err := v.Unmarshal(cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return cfg, nil
-}
+//func NewProvideConfig(v *viper.Viper) (*config.Config, error) {
+//	cfg := &config.Config{}
+//
+//	err := v.Unmarshal(cfg)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return cfg, nil
+//}
 
 func provideDependencies() fx.Option {
 	return fx.Provide(
 		NewDBConnection,
-		NewProvideConfig,
+		//NewProvideConfig,
 		NewViperEngine,
 		NewGinEngine,
 	)

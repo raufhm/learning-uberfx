@@ -1,9 +1,9 @@
 package uberfx
 
 import (
-	"github.com/raufhm/learning-uberfx/handler"
-	"github.com/raufhm/learning-uberfx/repository"
-	"github.com/raufhm/learning-uberfx/service"
+	"github.com/raufhm/learning-uberfx/internal/handler"
+	"github.com/raufhm/learning-uberfx/internal/repository"
+	"github.com/raufhm/learning-uberfx/internal/service"
 	"go.uber.org/fx"
 )
 
