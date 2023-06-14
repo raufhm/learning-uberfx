@@ -3,7 +3,7 @@ package uberfx
 import (
 	"context"
 	"fmt"
-	"github.com/raufhm/learning-uberfx/internal/router"
+	"github.com/raufhm/learning-uberfx/internal/route"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
@@ -51,5 +51,5 @@ func InvokeHTTPServer() fx.Option {
 }
 
 func InvokeRegisterRoutes() fx.Option {
-	return fx.Invoke(router.RegisterRoutes)
+	return fx.Invoke(route.RegisterRoutes)
 }

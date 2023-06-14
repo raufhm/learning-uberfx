@@ -1,4 +1,4 @@
-package router
+package route
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,6 +6,9 @@ import (
 )
 
 func RegisterRoutes(router *gin.Engine, userHandler *handler.UserHandler) {
-	router.GET("/users", userHandler.GetUserByID)
-	// Add more routes as needed
+	v1 := router.Group("iam/v1")
+	{
+		v1.GET("/user:id", userHandler.GetUserByID)
+		// Add more routes as needed
+	}
 }

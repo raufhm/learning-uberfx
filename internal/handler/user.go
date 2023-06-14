@@ -2,8 +2,10 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/raufhm/learning-uberfx/helper/common"
 	"github.com/raufhm/learning-uberfx/internal/domain"
 	"github.com/raufhm/learning-uberfx/internal/service"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -22,8 +24,8 @@ func (h *UserHandler) GetUserByID(c *gin.Context) {
 
 	user, err := h.UserService.GetUserByID(userID)
 	if err != nil {
-		// Handle the error
-		// ...
+		log.Errorf("UserService.GetUserByID(): %s, id: %s", err.Error(), userID)
+		c.JSON(http.StatusInternalServerError, common.ErrorInternal.Error())
 		return
 	}
 
