@@ -1,4 +1,4 @@
-## learning uber fx
+## Learning Uber fx
 
 ### Project Structure
 
